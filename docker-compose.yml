@@ -1,0 +1,19 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0.26
+    ports:
+      - 3330:3306
+    environment:
+      - MYSQL_DATABASE=assistant
+      - MYSQL_ROOT_PASSWORD=pass
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-ppass"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6334:6333"
